@@ -1,4 +1,4 @@
-graphy
-======
+sinatra-skeleton
+================
 
-Graphing some fda data
+a sinatra skeleton in the theme of rails
