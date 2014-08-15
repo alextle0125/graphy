@@ -27,7 +27,7 @@ nav .brand, nav .brand a {
 
 nav ul {
   display: inline-block;
-  width: 30%;
+  width: 95%;
   text-align: right;
 }
 
@@ -38,6 +38,7 @@ nav li {
 
 nav li a {
   color: gray;
+  margin-left: 15px;
   text-decoration: none;
 }
 

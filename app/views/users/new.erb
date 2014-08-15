@@ -3,7 +3,7 @@
 
   <div id="errors"><%= erb :_model_errors, :layout => false, :locals => { :model => @user } %></div>
 
-  <form id="sign-up" method="post" action="/users/new">
+  <form id="sign-up" method="post" action="/users">
     <label class="label" for="name">Name</label>
     <input type="text" name="user[name]" placeholder="e.g., joe" value="<%= @user.name %>">
     <span id="name-errors" class="errors"></span>
