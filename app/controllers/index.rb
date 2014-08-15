@@ -55,7 +55,13 @@ end
 #----------- RESULTS -----------
 
 post '/result/show' do
-  @criteria = params[:criteria].to_json
+  @result = Result.create(
+    topic: params[:criteria],
+    file_data: get_fda_data(params[:criteria]),
+    user_id: session[:user_id]
+  )
+
+  @result.to_json
 end
 
 
