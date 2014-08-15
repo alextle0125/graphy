@@ -8,14 +8,16 @@ $(document).ready(function () {
   });
 
   $("#graphy").submit(function( event ){
+    event.preventDefault();
 
-    response = $.ajax({
+    $.ajax({
       url: '/result/show',
       type: 'POST',
-      data: responseText,
+      data: $("#graphy").serialize(),
       dataType: "json"
+    }).done(function(data){
+      console.log(data);
     });
-    console.log(response);
     // done(function (data) {
     //   console.log("SUCCESS!");
     // })

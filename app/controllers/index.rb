@@ -56,7 +56,6 @@ end
 
 post '/result/show' do
   @criteria = params[:criteria].to_json
-  erb :show
 end
 
 
