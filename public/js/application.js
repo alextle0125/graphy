@@ -7,8 +7,17 @@ $(document).ready(function () {
     request.done(function () { window.location = "/"; });
   });
 
-  $()
+  $("#graphy").submit(function( event ){
 
-
-
+    response = $.ajax({
+      url: '/result/show',
+      type: 'POST',
+      data: responseText,
+      dataType: "json"
+    });
+    console.log(response);
+    // done(function (data) {
+    //   console.log("SUCCESS!");
+    // })
+  })
 });
