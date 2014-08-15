@@ -1,6 +1,4 @@
-
-
-
+#----------- INDEX -----------
 
 get '/' do
   # render home page
@@ -11,14 +9,7 @@ end
 
 #----------- SESSIONS -----------
 
-get '/sessions/new' do
-  # render sign-in page
-  @email = nil
-  erb :sign_in
-end
-
 post '/sessions' do
-  # sign-in
   @email = params[:email]
   user = User.authenticate(@email, params[:password])
   if user
@@ -48,7 +39,7 @@ get '/users/new' do
   erb :sign_up
 end
 
-post '/users' do
+post '/users/new' do
   # sign-up
   @user = User.new params[:user]
   if @user.save
@@ -60,3 +51,8 @@ post '/users' do
     erb :sign_up
   end
 end
+
+#----------- RESULTS -----------
+
+
+

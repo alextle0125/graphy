@@ -1,23 +1,17 @@
 <div class="container">
-<% if current_user %>
-  <h1>Hello <%=get_user_name%>, User selections </h1>
+
+  <% if current_user %>
+    <h1>Hello <%=get_user_name%>, what would you like to Graphy? </h1>
   <% else %>
-   <h1>User selections for graphs </h1>
-   <% end %>
+    <h1>Choose something to graphy...</h1>
+  <% end %>
+
 <table style="width:600px">
-<tr>
-  <th>Name</th>
 
-</tr>
-<tr>
-    <% @users.each do |person| %>
-
-    <td><%= person.name %></td>
-
-
-
-</tr>
-    <% end %>
+  <form name="graphy" action="result/show" method="post">
+    <input type="text" name="criteria">
+    <input type = "submit" value="Submit">
+  </form>
 
 </table>
 
