@@ -19,8 +19,8 @@
   <nav>
 
     <ul>
-      <li><a href="/">Home</a></li>
      <% if current_user %>
+        <li><a href="/">Home</a></li>
         <li><a href="/users/<%= current_user.id %>">Profile</a></li>
         <li><a id="sign-out" href="/sessions/<%= current_user.id %>">Sign Out</a></li>
       <% else %>
@@ -29,7 +29,7 @@
           E-mail: <input type="text" name="email">
           Password: <input type="password" name="password">
           <li><input type="submit" value="Sign In"></li>
-          <li><a href='/users/new'>Sign Up</a></li>
+          <li><button style="margin-left: -25px" href='/users/new'>Sign Up</button></li>
         </form>
      <% end %>
     </ul>
