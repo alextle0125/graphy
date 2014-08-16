@@ -33,6 +33,7 @@ end
 
 #----------- USERS -----------
 
+
 get '/users/new' do
   # render sign-up page
   @user = User.new
@@ -52,6 +53,14 @@ post '/users/new' do
   end
 end
 
+get '/users/:user_id' do
+  @user = User.find(params[:user_id])
+  @results = @user.results
+
+  erb :'users/show'
+end
+
+
 #----------- RESULTS -----------
 
 post '/result/show' do
@@ -62,6 +71,12 @@ post '/result/show' do
   )
 
   @result.to_json
+end
+
+get '/users/:user_id/results/:result_id' do
+  @result = Result.find(params[:result_id])
+  erb :'results/show'
+
 end
 
 

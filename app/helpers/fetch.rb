@@ -9,5 +9,4 @@ helpers do
     uri = URI.parse(uri_string)
     Net::HTTP.get(uri)
   end
-
 end

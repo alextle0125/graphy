@@ -16,10 +16,7 @@ $(document).ready(function () {
       data: $("#graphy").serialize(),
       dataType: "json"
     }).done(function(data){
-      console.log(data);
+      graphData(data);
     });
-    // done(function (data) {
-    //   console.log("SUCCESS!");
-    // })
-  })
+  });
 });

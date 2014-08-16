@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>
+    <%= @user.name %>
+  </h2>
+
+  <ul>
+    <% @results.each do |result| %>
+      <li>
+        <a href="/users/<%=@user.id%>/results/<%= result.id %>">
+          <%= result.topic %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+
+</div>
