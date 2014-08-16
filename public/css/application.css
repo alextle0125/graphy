@@ -1,14 +1,40 @@
+body {
+ background-color: #FF9966;
+}
+
 .container {
-  margin: 20px auto;
-  width: 800px;
-  padding: 0px 20px 20px 20px;
-  border: 1px dotted black;
+  margin: 10% auto;
+  width: 80%;
+  height: 500px;
+  padding: 20px 20px 20px 20px;
+  background-color: #fff;
+  border-radius: 50px;
 }
 
 .container h1 {
   font-size: 17pt;
-
 }
+
+#graphy {
+  position: relative;
+  float: left;
+  margin-left: 5%;
+}
+
+.metadata {
+  position: relative;
+  float: right;
+  display: none;
+  margin-top: -20%;
+  border-left: ridge;
+  padding-left: 10%;
+}
+
+.references_container {
+  color: #999;
+  width: 100px;
+}
+
 
 nav {
   width: 100%;

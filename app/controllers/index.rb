@@ -7,6 +7,7 @@ get '/' do
   erb :index
 end
 
+
 #----------- SESSIONS -----------
 
 post '/sessions' do
@@ -73,10 +74,19 @@ post '/result/show' do
   @result.to_json
 end
 
+
 get '/users/:user_id/results/:result_id' do
   @result = Result.find(params[:result_id])
   erb :'results/show'
+end
 
+get '/users/:user_id/results/:result_id/links' do
+  redirect '/'
+end
+
+post '/users/:user_id/results/:result_id/links' do
+  @link = params[:link]
+  @link.to_json
 end
 
 
