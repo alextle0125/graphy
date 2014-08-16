@@ -21,15 +21,15 @@
   <nav>
 
     <ul>
-      <li><a href="/">Home</a></li>
      <% if current_user %>
+        <li><a href="/">Home</a></li>
         <li><a href="/users/<%= current_user.id %>">Profile</a></li>
         <li><a id="sign-out" href="/sessions/<%= current_user.id %>">Sign Out</a></li>
       <% else %>
 
         <form class="pure-form" name="sign_in" action="/sessions" method="post">
-          E-mail: <input type="text" name="email">
-          Password: <input type="password" name="password">
+          <input type="text" name="email" placeholder="Email">
+          <input type="password" name="password" placeholder="Password">
           <li><input type="submit" value="Sign In"  class="pure-button"></li>
           <li><a href='/users/new'>Sign Up</a></li>
         </form>
