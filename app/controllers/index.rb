@@ -64,11 +64,14 @@ end
 #----------- RESULTS -----------
 
 post '/result/show' do
-  @result = Result.create(
-    topic: params[:criteria],
-    file_data: get_fda_data(params[:criteria]),
-    user_id: session[:user_id]
-  )
+  @result = Result.find_or_initialize_by(topic: params[:criteria])
+  if @result.new_record?
+    @result.update_attributes(
+      topic: params[:criteria],
+      file_data: get_fda_data(params[:criteria]),
+      user_id: session[:user_id]
+    )
+  end
 
   @result.to_json
 end
