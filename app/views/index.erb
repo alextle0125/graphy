@@ -20,7 +20,7 @@
   <% if current_user %>
 
     <form name='project' id='project' action='/users/<%= current_user.id %>/projects/new' method='post'>
-      <input type='text' name='project[title]' placeholder='Title'><br>
+      <input type='text' name='project[title]' placeholder='Title' required><br>
       <input type="hidden" name="project[user_id]" value="<%= current_user.id %>">
       <textarea name='project[note_content]' placeholder='Write some important notes' rows='7' cols='50'></textarea><br>
       <input type='submit' value='Save Project'>
@@ -29,7 +29,7 @@
 
     <p class="references" style="color: #999">References:</p>
     <form name='references' id='references' action='/users/<%= current_user.id %>/projects/<% next_project_id %>/links' method='post'>
-      <input type='text' name='link' placeholder='Tack on important links'>
+      <input type='url' name='link' placeholder='Tack on important links' required>
       <input type='submit' value='URL'>
     </form>
   <% else %>
