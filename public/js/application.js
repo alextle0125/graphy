@@ -14,13 +14,13 @@ $(document).ready(function() {
 
   var newGraph = true;
 
-  $("#graphy").submit(function(e) {
+  $('form[name="graphy"]').submit(function(e) {
     e.preventDefault();
     var query = toTitleCase($('input[name="criteria"]').val());
     $.ajax({
       url: '/result/show',
       type: 'POST',
-      data: $("#graphy").serialize(),
+      data: $('form[name="graphy"]').serialize(),
       dataType: "json"
     }).done(function(data){
       dataArray = parseData(data);
@@ -36,7 +36,7 @@ $(document).ready(function() {
     });
   });
 
-  containerHeight = 500
+  containerHeight = 400
   $("#references").submit(function( event ){
     event.preventDefault();
 

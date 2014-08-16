@@ -1,16 +1,21 @@
-<div class="container">
+<div id="search">
+
   <% if current_user %>
-    <h1>Hello <%=get_user_name%>, what would you like to Graphy? </h1>
-  <% else %>
-    <h1>Choose something to graphy...</h1>
+      <h1>Hello <%=get_user_name%>, what would you like to Graphy? </h1>
+    <% else %>
+      <h1>Choose something to graphy...</h1>
   <% end %>
 
-  <div class="graphy" style="width:600px">
+  <form name="graphy" id="graphy" action="result/show" method="post">
+    <input type="text" name="criteria" placeholder="Food Name" required>
+    <input type = "submit" value="Submit">
+  </form>
 
-    <form name="graphy" id="graphy" action="result/show" method="post">
-      <input type="text" name="criteria" placeholder="Food Name" required>
-      <input type = "submit" value="Submit">
-    </form>
+</div>
+
+<div class="container">
+
+  <div style="width:600px">
 
     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
