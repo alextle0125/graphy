@@ -1,24 +1,38 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
   // send an HTTP DELETE request for the sign-out link
   $('a#sign-out').on("click", function (e) {
     e.preventDefault();
     var request = $.ajax({ url: $(this).attr('href'), type: 'delete' });
-    request.done(function () { window.location = "/"; });
+    request.done(function() { window.location = "/"; });
   });
 
-  $("#graphy").submit(function( event ){
-    event.preventDefault();
+  $('#reset').click(function(e) {
+    e.preventDefault();
+    clearGraph();
+  });
 
+  var newGraph = true;
+
+  $("#graphy").submit(function(e) {
+    e.preventDefault();
+    var query = toTitleCase($('input[name="criteria"]').val());
     $.ajax({
       url: '/result/show',
       type: 'POST',
       data: $("#graphy").serialize(),
       dataType: "json"
     }).done(function(data){
-      graphData(data);
-      $('.metadata').css('display','inline-block')
-      // $('#container').append("<br><form name=\'project\' id=\'project\' action=\'/users/:user_id/results/new\' method=\'post\'><input type=\'text\' name=\'project[:title]\' placeholder=\'Title\'><br><textarea name=\'project[:notes]\' placeholder=\'Write some important notes\' rows=\'7\' cols=\'50\'></textarea><br><p style=\'color: #999\'>References:</p><form name=\'references\' id=\'references\' action=\'/users/:user_id/results/:result_id/links\' method=\'post\'><input type=\'text\' name=\'project[:link]\' placeholder=\'Tack on important links\'><input type=\'submit\' value=\'URL\'></form><input type=\'submit\' value=\'Save Project\'></form>");
+      dataArray = parseData(data);
+      if (newGraph) {
+        graph(dataArray, query);
+        newGraph = false;
+        $('.metadata').css('display','inline-block')
+      } else {
+        addSeries(dataArray, query, true);
+      }
+      addSeries(leastSquaresRegression(dataArray), query + " LSR", false);
+      $('input[name="criteria"]').val('');
     });
   });
 
