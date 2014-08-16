@@ -21,7 +21,7 @@
     <ul>
       <li><a href="/">Home</a></li>
      <% if current_user %>
-        <li><a href="/users/<%= current_user.id %>"><%= current_user.name %></a></li>
+        <li><a href="/users/<%= current_user.id %>">Profile</a></li>
         <li><a id="sign-out" href="/sessions/<%= current_user.id %>">Sign Out</a></li>
       <% else %>
 
