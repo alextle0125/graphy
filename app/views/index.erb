@@ -8,7 +8,7 @@
   <div class="graphy" style="width:600px">
 
     <form name="graphy" id="graphy" action="result/show" method="post">
-      <input type="text" name="criteria" placeholder="food1, food2">
+      <input type="text" name="criteria" placeholder="Food Name" required>
       <input type = "submit" value="Submit">
     </form>
 
@@ -17,18 +17,23 @@
   </div>
 
   <div class="metadata" style="width:600px">
+  <% if current_user %>
 
-    <form name='project' id='project' action='/users/:user_id/results/new' method='post'>
-      <input type='text' name='project[:title]' placeholder='Title'><br>
-      <textarea name='project[:notes]' placeholder='Write some important notes' rows='7' cols='50'></textarea><br>
+    <form name='project' id='project' action='/users/<%= current_user.id %>/projects/new' method='post'>
+      <input type='text' name='project[title]' placeholder='Title'><br>
+      <input type="hidden" name="project[user_id]" value="<%= current_user.id %>">
+      <textarea name='project[note_content]' placeholder='Write some important notes' rows='7' cols='50'></textarea><br>
       <input type='submit' value='Save Project'>
     </form>
-    <p class="references" style="color: #999">References:</p>
-      <form name='references' id='references' action='/users/:user_id/results/:result_id/links' method='post'>
-        <input type='text' name='link' placeholder='Tack on important links'>
-        <input type='submit' value='URL'>
-      </form>
 
+    <p class="references" style="color: #999">References:</p>
+    <form name='references' id='references' action='/users/<%= current_user.id %>/projects/<% next_project_id %>/links' method='post'>
+      <input type='text' name='link' placeholder='Tack on important links'>
+      <input type='submit' value='URL'>
+    </form>
+  <% else %>
+    <p>Log in to save your results</p>
+  <% end %>
   </div>
 
 </div>

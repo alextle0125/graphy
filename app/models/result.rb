@@ -1,7 +1,9 @@
 class Result < ActiveRecord::Base
-   validates :topic, :presence => true
-   # validates :user_id, :presence => true
-    validates :file_data, :presence => true
+  validates :topic, :presence => true
+  # validates :user_id, :presence => true
+  validates :file_data, :presence => true
 
-    belongs_to :user
+  has_one :user
+  has_many :project_results
+  has_many :projects, through: :project_results
 end

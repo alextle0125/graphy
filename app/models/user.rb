@@ -8,9 +8,10 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, length: { minimum: 6 }
-  has_many :results
 
-
+  has_many :projects
+  has_many :project_results
+  has_many :results, through: :projects
 
   def self.authenticate(email, password)
     user = User.find_by_email(email)

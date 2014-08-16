@@ -5,9 +5,6 @@ configure do
   enable :sessions
 end
 
-
-
-
 helpers do
 
   def current_user

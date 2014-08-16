@@ -3,7 +3,8 @@
 get '/' do
   # render home page
   @users = User.all
-
+  session[:current_results] = []
+  p session
   erb :index
 end
 
@@ -73,10 +74,15 @@ post '/result/show' do
       user_id: session[:user_id]
     )
   end
-
+  if !session[:current_results]
+    session[:current_results] = [@result.id]
+  else
+    session[:current_results] << @result.id
+  end
+  session[:current_results].uniq!
+  p session
   @result.to_json
 end
-
 
 get '/users/:user_id/results/:result_id' do
   @result = Result.find(params[:result_id])
@@ -87,8 +93,30 @@ get '/users/:user_id/results/:result_id/links' do
   redirect '/'
 end
 
-post '/users/:user_id/results/:result_id/links' do
+
+
+#----------- PROJECTS -------------
+post '/users/:user_id/projects/new' do
+  @project = Project.create(params[:project])
+  if @project.valid?
+    session[:current_results].each do |result_id|
+      proj_res = ProjectResult.find_or_initialize_by(result_id: result_id)
+      proj_res.update_attributes(project_id: @project.id, user_id: current_user.id)
+      proj_res.save
+    end
+    session[:project_id] = @project.id
+    @project.to_json
+  else
+    flash[:error] = @project.errors.full_messages
+  end
+end
+
+
+post '/users/:user_id/projects/:project_id/links' do
+  @project = Project.find_or_initialize(id: params[:project_id])
   @link = params[:link]
+  @project.references << @link
+  @project.save
   @link.to_json
 end
 

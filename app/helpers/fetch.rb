@@ -9,4 +9,12 @@ helpers do
     uri = URI.parse(uri_string)
     Net::HTTP.get(uri)
   end
+
+  def get_project_id
+    session[:project_id] || next_project_id
+  end
+
+  def next_project_id
+    Project.last ? Project.last.id + 1 : 1
+  end
 end
