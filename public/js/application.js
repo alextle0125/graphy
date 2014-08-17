@@ -1,13 +1,19 @@
+function clearProject() {
+  $('form#project').attr('action', '/users/' + userid + '/projects/new');
+  $('form#project').attr('method', 'post');
+  $('input[name="project[title]"').val('');
+  $('textarea[name="project[note_content]"').val('');
+}
+
 $(document).ready(function() {
 
   var userid = $('#userid').val();
-
+  var projectID;
   // Select Project
   $('select#projectSelect').on('change', function(e) {
-    var projectID = $(this).val();
+    projectID = $(this).val();
     if (projectID !== 'null') {
       $.getJSON('/users/'+userid+'/projects/'+projectID, function(data){
-        console.log(data);
         $('form#project').attr('action', '/users/'+userid+'/projects/'+projectID);
         $('form#project').attr('method', 'put');
         $('input[name="project[title]"').val(data.title);
@@ -15,9 +21,7 @@ $(document).ready(function() {
         $('input[name="project[user_id]"').val(data.user_id);
         clearGraph();
         var newGraph = true;
-
         data.results.forEach(function(result, index, array){
-          console.log(data);
           var dataArray = parseData(result);
           if (newGraph) {
             graph(dataArray, result.topic);
@@ -89,19 +93,20 @@ $(document).ready(function() {
   var containerHeight = 400;
   $("#references").submit(function( event ){
     event.preventDefault();
-
     $.ajax({
-      url: '/users/' + userid + '/projects/:result_id/links',
+      url: '/users/' + userid + '/projects/'+ projectID + '/references',
       type: 'POST',
       data: $("#references").serialize(),
       dataType: "json"
     }).done(function(data) {
+      console.log(data);
+      $('input[name="link"]').val('');
       if (data.length > 75){
-        $('p.references').append("<br><a href=\'" + data + "\'>" + data.substr(0,75) + "</a>")
+        $('p.references').append("<br><a href=\'" + data.url + "\'>" + data.url.substr(0,75) + "</a>");
         containerHeight += 25;
         $('.container').css('height', containerHeight + 'px');
       } else {
-        $('p.references').append("<br><a href=\'" + data + "\'>" + data + "</a>");
+        $('p.references').append("<br><a href=\'" + data.url + "\'>" + data.url + "</a>");
         containerHeight += 25;
         $('.container').css('height', containerHeight + 'px');
       }
@@ -110,10 +115,3 @@ $(document).ready(function() {
 
 });
 
-function clearProject() {
-  $('form#project').attr('action', '/users/' + userid + '/projects/new');
-  $('form#project').attr('method', 'post');
-  $('input[name="project[title]"').val('');
-  $('textarea[name="project[note_content]"').val('');
-  $('input[name="project[user_id]"').val(data.user_id);
-}

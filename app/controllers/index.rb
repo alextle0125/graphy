@@ -95,13 +95,7 @@ post '/users/:user_id/projects/new' do
   end
 end
 
-post '/users/:user_id/projects/:project_id/links' do
-  @project = Project.find_or_initialize(id: params[:project_id])
-  @link = params[:link]
-  @project.references << @link
-  @project.save
-  @link.to_json
-end
+
 
 get '/users/:user_id/projects/:project_id' do
   @project = Project.find(params[:project_id])
@@ -126,3 +120,12 @@ put '/users/:user_id/projects/:project_id' do
     @project.errors.full_messages
   end
 end
+
+#----------- REFERENCES -------------
+post '/users/:user_id/projects/:project_id/references' do
+  @project = Project.find_or_initialize_by(id: params[:project_id])
+  @link = Reference.find_or_create_by(url: params[:link], project_id: params[:project_id])
+  p @link
+  @link.to_json
+end
+
