@@ -25,6 +25,18 @@
   <div class="metadata">
   <% if current_user %>
 
+    <form class="pure-form" action="">
+    <input type="hidden" id="userid" value="<%= current_user.id %>">
+    <fieldset>
+    <select name="projects" id="projectSelect">
+      <option value="null" selected>Saved projects</option>
+      <% current_user.projects.each do |project| %>
+        <option value="<%= project.id %>"><%= project.id %>. <%= project.title %></option>
+      <% end %>
+    </select>
+    </fieldset>
+    </form>
+
     <form class="pure-form pure-form-stacked" name='project' id='project' action='/users/<%= current_user.id %>/projects/new' method='post'>
       <fieldset>
         <legend>Notes</legend>

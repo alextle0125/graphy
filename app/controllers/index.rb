@@ -4,6 +4,8 @@ get '/' do
   # render home page
   @users = User.all
   session[:current_results] = []
+  p session
+  p current_user
   erb :index
 end
 
@@ -107,4 +109,7 @@ post '/users/:user_id/projects/:project_id/links' do
   @link.to_json
 end
 
-
+get '/users/:user_id/projects/:project_id' do
+  @project = Project.find(params[:project_id])
+  @project.to_json
+end

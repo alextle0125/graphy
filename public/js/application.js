@@ -1,5 +1,15 @@
 $(document).ready(function() {
 
+  var userid = $('#userid').val();
+
+  $('select#projectSelect').on('change', function(e) {
+    if ($(this).val() !== 'null') {
+      $.getJSON('/users/'+userid+'/projects/'+$(this).val(), function(data){
+        console.log(data);
+      });
+    }
+  });
+
   // send an HTTP DELETE request for the sign-out link
   $('a#sign-out').on("click", function (e) {
     e.preventDefault();
@@ -23,7 +33,7 @@ $(document).ready(function() {
       data: $('form[name="graphy"]').serialize(),
       dataType: "json"
     }).done(function(data){
-      dataArray = parseData(data);
+      var dataArray = parseData(data);
       if (newGraph) {
         graph(dataArray, query);
         newGraph = false;
@@ -36,25 +46,25 @@ $(document).ready(function() {
     });
   });
 
-  containerHeight = 400
+  var containerHeight = 400;
   $("#references").submit(function( event ){
     event.preventDefault();
 
     $.ajax({
-      url: '/users/:user_id/results/:result_id/links',
+      url: '/users/' + userid + '/projects/:result_id/links',
       type: 'POST',
       data: $("#references").serialize(),
       dataType: "json"
-    }).done(function(data){
+    }).done(function(data) {
       if (data.length > 75){
         $('p.references').append("<br><a href=\'" + data + "\'>" + data.substr(0,75) + "</a>")
-        containerHeight += 25
-        $('.container').css('height', containerHeight + 'px')
+        containerHeight += 25;
+        $('.container').css('height', containerHeight + 'px');
       } else {
-        $('p.references').append("<br><a href=\'" + data + "\'>" + data + "</a>")
-        containerHeight += 25
-        $('.container').css('height', containerHeight + 'px')
-      };
+        $('p.references').append("<br><a href=\'" + data + "\'>" + data + "</a>");
+        containerHeight += 25;
+        $('.container').css('height', containerHeight + 'px');
+      }
     });
   });
 
