@@ -1,5 +1,15 @@
 $(document).ready(function() {
 
+  var userid = $('#userid').val();
+
+  $('select#projectSelect').on('change', function(e) {
+    if ($(this).val() !== 'null') {
+      $.getJSON('/users/'+userid+'/projects/'+$(this).val(), function(data){
+        console.log(data);
+      });
+    }
+  });
+
   // send an HTTP DELETE request for the sign-out link
   $('a#sign-out').on("click", function (e) {
     e.preventDefault();
