@@ -47,6 +47,10 @@ body {
   display: inline-block;
 }
 
+#search h1 {
+
+}
+
 #graphy {
   margin: 0 auto;
   padding: 5px;
