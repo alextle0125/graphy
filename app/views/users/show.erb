@@ -1,8 +1,28 @@
-<div class="container">
+<div class="user_title">
   <h2>
     <%= @user.name %>
   </h2>
+  <hr class="user_rule">
+</div>
 
+<div class="project_menu">
+  <div class="pure-menu pure-menu-open">
+    <a class="pure-menu-heading menu_heading">Graphed Projects</a>
+
+    <ul>
+        <li><a href="#">Flickr</a></li>
+        <li><a href="#">Messenger</a></li>
+        <li><a href="#">Sports</a></li>
+        <li><a href="#">Finance</a></li>
+    </ul>
+  </div>
+</div>
+<div class="ref_viewport">
+  <p>References:</p>
+</div>
+<div class="project_viewport">
+  <p>RENDER PROJECT HERE</p>
+</div>
   <ul>
     <% @results.each do |result| %>
       <li>
@@ -13,4 +33,4 @@
     <% end %>
   </ul>
 
-</div>
+
