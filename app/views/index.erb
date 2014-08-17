@@ -2,7 +2,7 @@
   <div class="header">
     <img class="compass" src="/images/graphy_logo.png">
     <% if current_user %>
-        <h1>Hello <%=get_user_name%>, what would you like to graph? </h1>
+        <h1>Hello <%=get_user_name%>, what do you want to graph...</h1>
       <% else %>
         <h1>What do you want to graph...</h1>
     <% end %>
@@ -43,6 +43,7 @@
         <input type="hidden" name="project[user_id]" value="<%= current_user.id %>">
         <textarea name='project[note_content]' placeholder='Write some important notes' rows='7' cols='50'></textarea><br>
         <input type='submit'  class="pure-button pure-button-primary" value='Save Project'>
+        <span class="feedback"></span>
       </fieldset>
     </form>
 
