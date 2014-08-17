@@ -13,10 +13,10 @@ class User < ActiveRecord::Base
   has_many :project_results
   has_many :results, through: :projects
 
-  def self.authenticate(email, password)
-    user = User.find_by_email(email)
-    return user if user && (user.authenticate(password))
-    nil
-  end
+  # def self.authenticate(email, password)
+  #   user = User.find_by_email(email)
+  #   return user if user && (user.authenticate(password))
+  #   nil
+  # end
 
 end

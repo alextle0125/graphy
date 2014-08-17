@@ -13,15 +13,24 @@ end
 #----------- SESSIONS -----------
 
 post '/sessions' do
-  user = User.authenticate(params[:email], params[:password])
-  if user
+  if params[:signin] == "Sign In"
+    user = User.find_by(email: params[:user][:email])
+    if user && user.authenticate(params[:user][:password])
     # successfully authenticated; set up session and redirect
-    session[:user_id] = user.id
-    redirect '/'
-  else
+      session[:user_id] = user.id
+      redirect '/'
+    else
     # an error occurred, re-render the sign-in form, displaying an error
-    @error = "Invalid email or password."
-    erb :sign_in
+      @error = "Invalid email or password."
+      erb :sign_in
+    end
+  elsif params[:signin] == "Sign Up"
+    generate_new_user
+    if @user.save
+    # successfully created new account; set up the session and redirect
+      session[:user_id] = @user.id
+      redirect '/'
+    end
   end
 end
 
@@ -34,26 +43,6 @@ end
 
 
 #----------- USERS -----------
-
-
-get '/users/new' do
-  # render sign-up page
-  @user = User.new
-  erb :sign_up
-end
-
-post '/users/new' do
-  # sign-up
-  @user = User.new params[:user]
-  if @user.save
-    # successfully created new account; set up the session and redirect
-    session[:user_id] = @user.id
-    redirect '/'
-  else
-    # an error occurred, re-render the sign-up form, displaying errors
-    erb :sign_up
-  end
-end
 
 get '/users/:user_id' do
   @user = User.find(params[:user_id])

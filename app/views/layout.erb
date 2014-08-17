@@ -27,12 +27,11 @@
         <li><a href="/users/<%= current_user.id %>">Profile</a></li>
         <li><a id="sign-out" href="/sessions/<%= current_user.id %>">Sign Out</a></li>
       <% else %>
-
-        <form class="pure-form" name="sign_in" action="/sessions" method="post">
-          <input type="text" name="email" placeholder="Email">
-          <input type="password" name="password" placeholder="Password">
-          <li><input type="submit" value="Sign In"  class="pure-button"></li>
-          <li><a href='/users/new'>Sign Up</a></li>
+        <form class="pure-form" name="user" action="/sessions" method="post">
+          E-mail: <input type="text" name="user[email]">
+          Password: <input type="password" name="user[password]">
+          <li><input class="pure-button pure-button-primary" type="submit" name="signin" value="Sign In"></li>
+          <li><input class="pure-button" type="submit" name="signin" value="Sign Up"></li>
         </form>
      <% end %>
     </ul>
