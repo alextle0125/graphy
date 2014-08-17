@@ -55,7 +55,6 @@ end
 
 
 #----------- RESULTS -----------
-
 post '/result/show' do
   @result = Result.find_or_initialize_by(topic: params[:criteria])
   if @result.new_record?
@@ -84,24 +83,19 @@ get '/users/:user_id/results/:result_id/links' do
   redirect '/'
 end
 
-
-
 #----------- PROJECTS -------------
 post '/users/:user_id/projects/new' do
   @project = Project.create(params[:project])
   if @project.valid?
     session[:current_results].each do |result_id|
-      proj_res = ProjectResult.find_or_initialize_by(result_id: result_id)
-      proj_res.update_attributes(project_id: @project.id, user_id: current_user.id)
-      proj_res.save
+      ProjectResult.create(result_id: result_id, project_id: @project.id, user_id: current_user.id)
     end
     session[:project_id] = @project.id
-    @project.to_json
+    "Project saved."
   else
-    flash[:error] = @project.errors.full_messages
+    @project.errors.full_messages
   end
 end
-
 
 post '/users/:user_id/projects/:project_id/links' do
   @project = Project.find_or_initialize(id: params[:project_id])
@@ -113,5 +107,24 @@ end
 
 get '/users/:user_id/projects/:project_id' do
   @project = Project.find(params[:project_id])
-  @project.to_json
+  session[:current_results] = @project.results.map do |result|
+    result.id
+  end
+  @project.to_json(:include => :results)
+end
+
+put '/users/:user_id/projects/:project_id' do
+  @project = Project.find(params[:project_id])
+  @project.update_attributes(params[:project])
+  if @project.valid?
+    session[:current_results].each do |resultid|
+      proj_res = ProjectResult.find_or_initialize_by(result_id: resultid, project_id: @project.id)
+      proj_res.update_attributes(user_id: current_user.id)
+      proj_res.save
+    end
+    session[:project_id] = @project.id
+    "Project saved"
+  else
+    @project.errors.full_messages
+  end
 end

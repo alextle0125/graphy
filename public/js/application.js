@@ -2,12 +2,49 @@ $(document).ready(function() {
 
   var userid = $('#userid').val();
 
+  // Select Project
   $('select#projectSelect').on('change', function(e) {
-    if ($(this).val() !== 'null') {
-      $.getJSON('/users/'+userid+'/projects/'+$(this).val(), function(data){
+    var projectID = $(this).val();
+    if (projectID !== 'null') {
+      $.getJSON('/users/'+userid+'/projects/'+projectID, function(data){
         console.log(data);
+        $('form#project').attr('action', '/users/'+userid+'/projects/'+projectID);
+        $('form#project').attr('method', 'put');
+        $('input[name="project[title]"').val(data.title);
+        $('textarea[name="project[note_content]"').val(data.note_content);
+        $('input[name="project[user_id]"').val(data.user_id);
+        clearGraph();
+        var newGraph = true;
+
+        data.results.forEach(function(result, index, array){
+          console.log(data);
+          var dataArray = parseData(result);
+          if (newGraph) {
+            graph(dataArray, result.topic);
+            newGraph = false;
+            $('.metadata').css('display','inline-block');
+          } else {
+            addSeries(dataArray, result.topic, true);
+          }
+          addSeries(leastSquaresRegression(dataArray), result.topic + " LSR", false);
+        });
       });
     }
+  });
+
+
+  // Submit / Edit project
+  $('form#project').on('submit', function(e) {
+    e.preventDefault();
+    var form = $(this);
+    $.ajax({
+      url: form.attr('action'),
+      method: form.attr('method'),
+      data: form.serialize()
+    }).done(function(response) {
+      console.log(response);
+      $('.feedback').html(response);
+    });
   });
 
   // send an HTTP DELETE request for the sign-out link
@@ -17,13 +54,15 @@ $(document).ready(function() {
     request.done(function() { window.location = "/"; });
   });
 
-  $('#reset').click(function(e) {
+  $('.reset').click(function(e) {
     e.preventDefault();
     clearGraph();
+    clearProject();
   });
 
   var newGraph = true;
 
+  // Create / get result
   $('form[name="graphy"]').submit(function(e) {
     e.preventDefault();
     var query = toTitleCase($('input[name="criteria"]').val());
@@ -37,7 +76,7 @@ $(document).ready(function() {
       if (newGraph) {
         graph(dataArray, query);
         newGraph = false;
-        $('.metadata').css('display','inline-block')
+        $('.metadata').css('display','inline-block');
       } else {
         addSeries(dataArray, query, true);
       }
@@ -46,6 +85,7 @@ $(document).ready(function() {
     });
   });
 
+  // Add reference
   var containerHeight = 400;
   $("#references").submit(function( event ){
     event.preventDefault();
@@ -69,3 +109,11 @@ $(document).ready(function() {
   });
 
 });
+
+function clearProject() {
+  $('form#project').attr('action', '/users/' + userid + '/projects/new');
+  $('form#project').attr('method', 'post');
+  $('input[name="project[title]"').val('');
+  $('textarea[name="project[note_content]"').val('');
+  $('input[name="project[user_id]"').val(data.user_id);
+}
