@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="/css/normalize.css?app=skills">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/css/application.css?app=skills">
+<link href='http://fonts.googleapis.com/css?family=Quattrocento:400,700' rel='stylesheet' type='text/css'>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/bower_components/underscore/underscore.js"></script>
@@ -24,11 +27,11 @@
         <li><a href="/users/<%= current_user.id %>">Profile</a></li>
         <li><a id="sign-out" href="/sessions/<%= current_user.id %>">Sign Out</a></li>
       <% else %>
-        <form name="user" action="/sessions" method="post">
+        <form class="pure-form" name="user" action="/sessions" method="post">
           E-mail: <input type="text" name="user[email]">
           Password: <input type="password" name="user[password]">
-          <li><input type="submit" name="signin" value="Sign In"></li>
-          <li><input type="submit" name="signin" value="Sign Up"></li>
+          <li><input class="pure-button" type="submit" name="signin" value="Sign In"></li>
+          <li><input class="pure-button" type="submit" name="signin" value="Sign Up"></li>
         </form>
      <% end %>
     </ul>
