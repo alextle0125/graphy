@@ -5,13 +5,21 @@
     <div class="errors"><%= @error %></div>
   <% end %>
 
-  <form id="sign-in" method="post" action="/sessions">
-    <label class="label" for="email">Email</label>
-    <input type="email" name="email" placeholder="e.g., me@example.com" value="<%= @email %>"><br>
-    <label class="label" for="password">Password</label>
-    <input type="password" name="password" placeholder="6 or more characters">
-    <br>
-    <div class="submit"><input type="submit" value="Sign In"></div>
-  </form>
+  <form class="pure-form pure-form-aligned" id="sign-in" method="post" action="/sessions">
+    <fieldset>
+      <div class="pure-control-group">
+        <label class="label" for="email">Email</label>
+        <input type="email" name="email" placeholder="e.g., me@example.com" value="<%= @email %>">
+      </div>
 
+      <div class="pure-control-group">
+        <label class="label" for="password">Password</label>
+        <input type="password" name="password" placeholder="6 or more characters">
+      </div>
+
+      <div class="pure-controls">
+        <input type="submit" value="Sign In" class="pure-button pure-button-primary">
+      </div>
+    </fieldset>
+  </form>
 </div>

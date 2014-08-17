@@ -12,8 +12,7 @@ end
 #----------- SESSIONS -----------
 
 post '/sessions' do
-  @email = params[:email]
-  user = User.authenticate(@email, params[:password])
+  user = User.authenticate(params[:email], params[:password])
   if user
     # successfully authenticated; set up session and redirect
     session[:user_id] = user.id

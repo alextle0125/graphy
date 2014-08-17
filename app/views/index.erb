@@ -1,43 +1,54 @@
 <div id="search">
+  <div class="header">
+    <img class="compass" src="/images/graphy_logo.png">
+    <% if current_user %>
+        <h1>Hello <%=get_user_name%>, what would you like to Graph? </h1>
+      <% else %>
+        <h1>Choose something to Graph...</h1>
+    <% end %>
+  </div>
 
-  <% if current_user %>
-      <img class="compass" src="/images/graphy_logo.png">
-      <h1>Hello <%=get_user_name%>, what would you like to Graphy? </h1>
-    <% else %>
-      <img class="compass" src="/images/graphy_logo.png">
-      <h1>Choose something to graphy...</h1>
-  <% end %>
 
-  <form name="graphy" id="graphy" action="result/show" method="post">
+  <form class="pure-form" name="graphy" id="graphy" action="result/show" method="post">
     <input type="text" name="criteria" placeholder="Food Name" required>
-    <input type = "submit" value="Submit">
+    <input type = "submit" value="Graph"  class="pure-button pure-button-primary">
+    <input type="button" class="reset pure-button" value="Reset">
+
   </form>
 
 </div>
 
 <div class="container">
 
-  <div style="width:600px">
+  <div id="container" ></div>
 
-    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-  </div>
-
-  <div class="metadata" style="width:600px">
+  <div class="metadata">
   <% if current_user %>
 
-    <form name='project' id='project' action='/users/<%= current_user.id %>/projects/new' method='post'>
-      <input type='text' name='project[title]' placeholder='Title' required><br>
-      <input type="hidden" name="project[user_id]" value="<%= current_user.id %>">
-      <textarea name='project[note_content]' placeholder='Write some important notes' rows='7' cols='50'></textarea><br>
-      <input type='submit' value='Save Project'>
+    <form class="pure-form pure-form-stacked" name='project' id='project' action='/users/<%= current_user.id %>/projects/new' method='post'>
+      <fieldset>
+        <legend>Notes</legend>
+        <input class="pure-input-1" type='text' name='project[title]' placeholder='Title' required><br>
+        <input type="hidden" name="project[user_id]" value="<%= current_user.id %>">
+        <textarea name='project[note_content]' placeholder='Write some important notes' rows='7' cols='50'></textarea><br>
+        <input type='submit'  class="pure-button pure-button-primary" value='Save Project'>
+      </fieldset>
     </form>
 
 
-    <p class="references" style="color: #999">References:</p>
-    <form name='references' id='references' action='/users/<%= current_user.id %>/projects/<% next_project_id %>/links' method='post'>
-      <input type='url' name='link' placeholder='Tack on important links' required>
-      <input type='submit' value='URL'>
+    <form class="pure-form" name='references' id='references' action='/users/<%= current_user.id %>/projects/<% next_project_id %>/links' method='post'>
+      <fieldset>
+      <p class="references" style="color: #999">References:</p>
+
+      <div class="pure-u-3-4">
+        <input class="pure-input-1" type='url' name='link' placeholder='Tack on important links' required>
+      </div>
+
+      <div class="pure-u-1-5">
+        <input  class="pure-button pure-input-1" type='submit' value='URL'>
+      </div>
+
+      </fieldset>
     </form>
   <% else %>
     <p>Log in to save your results</p>
