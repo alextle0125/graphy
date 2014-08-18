@@ -90,21 +90,18 @@ post '/users/:user_id/projects/new' do
     session[:current_results].each do |result_id|
       ProjectResult.create(result_id: result_id, project_id: @project.id, user_id: current_user.id)
     end
-    session[:project_id] = @project.id
-    "Project saved."
+    @project.to_json(:include => [:results, :references])
   else
-    @project.errors.full_messages
+    400
   end
 end
-
-
 
 get '/users/:user_id/projects/:project_id' do
   @project = Project.find(params[:project_id])
   session[:current_results] = @project.results.map do |result|
     result.id
   end
-  @project.to_json(:include => :results)
+  @project.to_json(:include => [:results, :references])
 end
 
 put '/users/:user_id/projects/:project_id' do
@@ -116,10 +113,9 @@ put '/users/:user_id/projects/:project_id' do
       proj_res.update_attributes(user_id: current_user.id)
       proj_res.save
     end
-    session[:project_id] = @project.id
-    "Project saved"
+    @project.to_json(:include => [:results, :references])
   else
-    @project.errors.full_messages
+    400
   end
 end
 

@@ -39,7 +39,11 @@ function addSeries(dataArray, query, visibility) {
     });
 
     if (visibility) {
-        chart.setTitle({text: chart.title.textStr + " vs. " + query});
+        if (chart.title) {
+            chart.setTitle({text: chart.title.textStr + " vs. " + query});
+        } else {
+            chart.setTitle({text: "FDA Recalls: " + query});
+        }
     }
 }
 
@@ -48,6 +52,7 @@ function clearGraph() {
     while( chart.series.length > 0 ) {
         chart.series[0].remove( false );
     }
+    chart.setTitle({text: ''});
     chart.redraw();
 }
 
