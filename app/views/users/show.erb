@@ -10,10 +10,9 @@
     <a class="pure-menu-heading menu_heading">Graphed Projects</a>
 
     <ul>
-        <li><a href="#">Flickr</a></li>
-        <li><a href="#">Messenger</a></li>
-        <li><a href="#">Sports</a></li>
-        <li><a href="#">Finance</a></li>
+      <% @user.projects.each do |project| %>
+        <li><a href="<%= project.id %>"><%= project.title %></a></li>
+      <% end %>
     </ul>
   </div>
 </div>
@@ -21,16 +20,7 @@
   <p>References:</p>
 </div>
 <div class="project_viewport">
-  <p>RENDER PROJECT HERE</p>
+  <%= erb :_render_graphy %>
 </div>
-  <ul>
-    <% @results.each do |result| %>
-      <li>
-        <a href="/users/<%=@user.id%>/results/<%= result.id %>">
-          <%= result.topic %>
-        </a>
-      </li>
-    <% end %>
-  </ul>
 
 
