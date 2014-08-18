@@ -147,6 +147,7 @@ $(document).ready(function() {
   // User project rendering
   $('.pure-menu li a').on('click', function( event ){
     event.preventDefault();
+    $('.placeholder').hide();
     var projectID = $(this).attr('href');
     fetchProject(projectID);
 

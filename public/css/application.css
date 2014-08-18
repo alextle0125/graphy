@@ -16,6 +16,16 @@ body {
   font-size: 17pt;
 }
 
+.project_viewport #container {
+  width: 50%;
+}
+
+.project_viewport .placeholder {
+  font-size: 3em;
+  color: #BBB;
+  text-align: center;
+  line-height: 600px;
+}
 #container {
   width: 60%;
   float: left;
@@ -116,6 +126,7 @@ hr.user_rule {
 
 .metadata_specific {
   display: none;
+  width: 30%;
   margin-top: 100px;
   margin-left: 75px;
 }
