@@ -42,6 +42,7 @@ $(document).ready(function() {
     $('input[name="project[title]"').val(project.title);
     $('textarea[name="project[note_content]"').val(project.note_content);
     $('input[name="project[user_id]"').val(project.user_id);
+    $('form#references').attr('action', '/users/'+userid+'/projects/'+projectID+'/references');
   }
 
   function addReferences(response) {
@@ -130,8 +131,9 @@ $(document).ready(function() {
   // Add reference
   $("#references").submit(function( event ){
     event.preventDefault();
+    form = $(this);
     $.ajax({
-      url: '/users/' + userid + '/projects/'+ projectID + '/references',
+      url: form.attr('action'),
       type: 'POST',
       data: $("#references").serialize(),
       dataType: "json"
