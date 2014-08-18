@@ -1,0 +1,38 @@
+<div id="container" style="margin-top: 75px; margin-left: 10px"></div>
+
+<div class="metadata_specific">
+  <% if current_user %>
+    <form class="pure-form" action="">
+      <input type="hidden" id="userid" value="<%= current_user.id %>">
+    </form>
+
+    <form class="pure-form pure-form-stacked" name='project' id='project' action='/users/<%= current_user.id %>/projects/new' method='post'>
+      <fieldset>
+        <legend>Notes</legend>
+        <input class="pure-input-1" type='text' name='project[title]' placeholder='Title' required><br>
+        <input type="hidden" name="project[user_id]" value="<%= current_user.id %>">
+        <textarea name='project[note_content]' placeholder='Write some important notes' rows='7' cols='50'></textarea><br>
+        <input type='submit'  class="pure-button pure-button-primary" value='Save Project'>
+        <span class="feedback"></span>
+      </fieldset>
+    </form>
+
+
+    <form class="pure-form" name='references' id='references' action='/users/<%= current_user.id %>/projects/<% next_project_id %>/links' method='post'>
+      <fieldset>
+      <p class="references" style="color: #999">References:</p>
+
+      <div class="pure-u-3-4">
+        <input class="pure-input-1" type='url' name='link' placeholder='Tack on important links' required>
+      </div>
+
+      <div class="pure-u-1-5">
+        <input  class="pure-button pure-input-1" type='submit' value='URL'>
+      </div>
+
+      </fieldset>
+    </form>
+  <% else %>
+    <p>Log in to save your results</p>
+  <% end %>
+</div>
