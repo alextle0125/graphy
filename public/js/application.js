@@ -10,11 +10,10 @@ $(document).ready(function() {
   var userid = $('#userid').val();
   var projectID;
 
-  function fetchProject(projectID) {
+  function getProject(projectID) {
     if (projectID !== 'null') {
       $.getJSON('/users/'+userid+'/projects/'+projectID, function(response){
         setProjectFormValues(projectID, response);
-        console.log(response);
         addReferences(response);
         graphResults(response);
       });
@@ -70,7 +69,7 @@ $(document).ready(function() {
   // Select Project
   $('select#projectSelect').on('change', function(e) {
     projectID = $(this).val();
-    fetchProject(projectID);
+    getProject(projectID);
   });
 
 
@@ -84,7 +83,6 @@ $(document).ready(function() {
       data: form.serialize(),
       dataType: 'json'
     }).done(function(response) {
-      console.log(response);
       setProjectFormValues(response.id, response);
       $('.feedback').html("Project Saved!").hide().fadeIn(100).delay(1000).fadeOut();
     });
@@ -139,7 +137,6 @@ $(document).ready(function() {
       dataType: "json"
     }).done(function(data) {
       $('input[name="link"]').val('');
-      console.log(data);
       addReference(data);
     });
   });
@@ -150,7 +147,7 @@ $(document).ready(function() {
     event.preventDefault();
     $('.placeholder').hide();
     var projectID = $(this).attr('href');
-    fetchProject(projectID);
+    getProject(projectID);
 
     $('.metadata_specific').css('display', 'inline-block');
   });
