@@ -118,5 +118,43 @@ $(document).ready(function() {
     });
   });
 
+  // User project rendering
+
+  $('.pure-menu li a').on('click', function( event ){
+    event.preventDefault();
+    var projectID = $(this).attr('href');
+    if (projectID !== 'null') {
+      $.getJSON('/users/'+userid+'/projects/'+projectID, function(data){
+        console.log(data);
+        $('form#project').attr('action', '/users/'+userid+'/projects/'+projectID);
+        $('form#project').attr('method', 'put');
+        $('input[name="project[title]"').val(data.title);
+        $('textarea[name="project[note_content]"').val(data.note_content);
+        $('input[name="project[user_id]"').val(data.user_id);
+        var newGraph = true;
+
+        data.results.forEach(function(result, index, array){
+          var dataArray = parseData(result);
+          if (newGraph) {
+            graph(dataArray, result.topic);
+            newGraph = false;
+            $('.metadata').css('display','inline-block');
+          } else {
+            addSeries(dataArray, result.topic, true);
+          }
+          addSeries(leastSquaresRegression(dataArray), result.topic + " LSR", false);
+        });
+      });
+    }
+  });
+
 });
 
+
+function clearProject() {
+  $('form#project').attr('action', '/users/' + userid + '/projects/new');
+  $('form#project').attr('method', 'post');
+  $('input[name="project[title]"').val('');
+  $('textarea[name="project[note_content]"').val('');
+  $('input[name="project[user_id]"').val(data.user_id);
+}
