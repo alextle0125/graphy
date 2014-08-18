@@ -18,6 +18,7 @@ body {
 
 .project_viewport #container {
   width: 50%;
+  padding-bottom: 5%;
 }
 
 .project_viewport .placeholder {
@@ -83,17 +84,8 @@ hr.user_rule {
   float: right;
   width: 80%;
   margin-right: 3%;
-  height: 700px;
+  height: 100%;
   border: 1px solid #999;
-}
-
-.ref_viewport {
-  position: relative;
-  float: right;
-  margin-right: 1%;
-  width: 15%;
-  height: 300px;
-  border: 1px dotted #000;
 }
 
 #search {
