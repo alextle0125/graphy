@@ -147,5 +147,7 @@ $(document).ready(function() {
     event.preventDefault();
     var projectID = $(this).attr('href');
     fetchProject(projectID);
+
+    $('.metadata_specific').css('display', 'inline-block');
   });
 });
