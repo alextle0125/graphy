@@ -9,9 +9,8 @@ $(document).ready(function() {
 
   var userid = $('#userid').val();
   var projectID;
-  // Select Project
-  $('select#projectSelect').on('change', function(e) {
-    projectID = $(this).val();
+
+  function fetchProject(projectID) {
     if (projectID !== 'null') {
       $.getJSON('/users/'+userid+'/projects/'+projectID, function(data){
         $('form#project').attr('action', '/users/'+userid+'/projects/'+projectID);
@@ -19,7 +18,7 @@ $(document).ready(function() {
         $('input[name="project[title]"').val(data.title);
         $('textarea[name="project[note_content]"').val(data.note_content);
         $('input[name="project[user_id]"').val(data.user_id);
-        clearGraph();
+
         var newGraph = true;
         data.results.forEach(function(result, index, array){
           var dataArray = parseData(result);
@@ -34,6 +33,12 @@ $(document).ready(function() {
         });
       });
     }
+  }
+
+  // Select Project
+  $('select#projectSelect').on('change', function(e) {
+    projectID = $(this).val();
+    fetchProject(projectID);
   });
 
 
