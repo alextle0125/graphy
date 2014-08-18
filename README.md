@@ -1,4 +1,4 @@
-sinatra-skeleton
+Welcome to Graphy
 ================
 
-a sinatra skeleton in the theme of rails
+Graphy is the future of project generation and templating.
