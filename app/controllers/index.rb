@@ -122,8 +122,12 @@ end
 #----------- REFERENCES -------------
 post '/users/:user_id/projects/:project_id/references' do
   @project = Project.find_or_initialize_by(id: params[:project_id])
-  @link = Reference.find_or_create_by(url: params[:link], project_id: params[:project_id])
+  @link = Reference.create(url: params[:link], project_id: params[:project_id])
   p @link
-  @link.to_json
+  if @link.valid?
+    @link.to_json
+  else
+    500
+  end
 end
 

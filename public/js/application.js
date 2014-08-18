@@ -139,6 +139,7 @@ $(document).ready(function() {
       dataType: "json"
     }).done(function(data) {
       $('input[name="link"]').val('');
+      console.log(data);
       addReference(data);
     });
   });
