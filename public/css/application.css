@@ -69,10 +69,12 @@ hr.user_rule {
 }
 
 .project_viewport {
-  margin: 0 auto;
-  width: 65%;
+  position: relative;
+  float: right;
+  width: 80%;
+  margin-right: 3%;
   height: 700px;
-  border: 1px dotted #000;
+  border: 1px solid #999;
 }
 
 .ref_viewport {
@@ -110,6 +112,12 @@ hr.user_rule {
   display: none;
   border-left: ridge;
   padding-left: 5%;
+}
+
+.metadata_specific {
+  display: none;
+  margin-top: 100px;
+  margin-left: 75px;
 }
 
 .references_container {
