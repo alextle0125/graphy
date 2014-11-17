@@ -56,7 +56,7 @@ end
 
 #----------- RESULTS -----------
 post '/result/show' do
-  # @result = Result.find(topic: params[:criteria])
+  @result = Result.find(topic: params[:criteria])
   url = "https://api.fda.gov/food/enforcement.json?api_key=XajdC2VfR2I2IMvZFabHpZGG7z5v17Sii1Jg62JF&search=reason_for_recall:" + params[:criteria] + "&count=report_date"
   unless @result
     Result.create(
@@ -65,12 +65,12 @@ post '/result/show' do
       user_id: session[:user_id]
     )
   end
-  if !session[:current_results]
-    session[:current_results] = [@result.id]
-  else
-    session[:current_results] << @result.id
-  end
-  session[:current_results].uniq!
+  # if !session[:current_results]
+  #   session[:current_results] = [@result.id]
+  # else
+  #   session[:current_results] << @result.id
+  # end
+  # session[:current_results].uniq!
   redirect url
 end
 
