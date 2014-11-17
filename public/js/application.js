@@ -113,7 +113,7 @@ $(document).ready(function() {
       data: $('form[name="graphy"]').serialize(),
       dataType: "json"
     }).done(function(data){
-      var dataArray = parseData(data);
+      var dataArray = data.results;
       if (newGraph) {
         graph(dataArray, query);
         newGraph = false;
