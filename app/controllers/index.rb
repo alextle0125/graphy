@@ -57,16 +57,11 @@ end
 #----------- RESULTS -----------
 post '/result/show' do
   @result = Result.find_or_initialize_by(topic: params[:criteria])
-  query_root = 'https://api.fda.gov/food/enforcement.json?api_key=XajdC2VfR2I2IMvZFabHpZGG7z5v17Sii1Jg62JF&search=reason_for_recall:';
-  query_suffix = '&count=report_date'
-  uri_string = URI.escape(query_root + '"' + params[:criteria] + '"' + query_suffix)
-  uri = URI.parse(uri_string)
-  data = Net::HTTP.get(uri)
   url = "https://api.fda.gov/food/enforcement.json?api_key=XajdC2VfR2I2IMvZFabHpZGG7z5v17Sii1Jg62JF&search=reason_for_recall:" + params[:criteria] + "&count=report_date"
   if @result.new_record?
     @result.update_attributes(
       topic: params[:criteria],
-      file_data: data,
+      file_data: get_fda_data(params[:criteria]),
       user_id: session[:user_id]
     )
   end
@@ -76,7 +71,7 @@ post '/result/show' do
     session[:current_results] << @result.id
   end
   session[:current_results].uniq!
-  redirect data
+  redirect url
 end
 
 get '/users/:user_id/results/:result_id' do
