@@ -56,7 +56,7 @@ end
 
 #----------- RESULTS -----------
 post '/result/show' do
-  @result = Result.find(topic: params[:criteria])
+  # @result = Result.find(topic: params[:criteria])
   url = "https://api.fda.gov/food/enforcement.json?api_key=XajdC2VfR2I2IMvZFabHpZGG7z5v17Sii1Jg62JF&search=reason_for_recall:" + params[:criteria] + "&count=report_date"
   # unless @result
   #   Result.create(
