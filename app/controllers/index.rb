@@ -60,7 +60,7 @@ post '/result/show' do
   if @result.new_record?
     @result.update_attributes(
       topic: params[:criteria],
-      file_data: get_fda_data(params[:criteria]),
+      # file_data: get_fda_data(params[:criteria]),
       user_id: session[:user_id]
     )
   end
@@ -70,7 +70,6 @@ post '/result/show' do
     session[:current_results] << @result.id
   end
   session[:current_results].uniq!
-  p session
   @result.to_json
 end
 
