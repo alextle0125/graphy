@@ -13,17 +13,17 @@ end
 #----------- SESSIONS -----------
 
 post '/sessions/error' do
-  # if params[:signin] == "Sign In"
+  if params[:signin] == "Sign In"
   #   user = User.find_by(email: params[:user][:email])
   #   if user && user.authenticate(params[:user][:password])
   #   # successfully authenticated; set up session and redirect
   #     session[:user_id] = user.id
-  #     redirect '/'
+      redirect '/'
   #   else
   #     @error = "Invalid email or password"# an error occurred, re-render the sign-in form, displaying an error
   #     erb :index
   #   end
-  # elsif params[:signin] == "Sign Up"
+  elsif params[:signin] == "Sign Up"
   #   generate_user_name = params[:user][:email].scan(/(.*)@/)
   #   generate_user_name = generate_user_name[0][0]
   #   @user = User.new(params[:user])
@@ -33,10 +33,10 @@ post '/sessions/error' do
   #     session[:user_id] = @user.id
   #     redirect '/'
   #   else
-  #     @error = "E-mail is already taken"
-  #     erb :index
+      @error = "E-mail is already taken"
+      erb :index
   #   end
-  # end
+  end
   redirect "/"
 end
 
