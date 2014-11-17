@@ -61,7 +61,7 @@ post '/result/show' do
   if @result.new_record?
     @result.update_attributes(
       topic: params[:criteria],
-      file_data: get_fda_data(params[:criteria]),
+      # file_data: get_fda_data(params[:criteria]),
       user_id: session[:user_id]
     )
   end
