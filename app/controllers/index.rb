@@ -24,9 +24,9 @@ post '/sessions/error' do
   #     erb :index
   #   end
   elsif params[:signin] == "Sign Up"
-  #   generate_user_name = params[:user][:email].scan(/(.*)@/)
-  #   generate_user_name = generate_user_name[0][0]
-  #   @user = User.new(params[:user])
+    generate_user_name = params[:user][:email].scan(/(.*)@/)
+    generate_user_name = generate_user_name[0][0]
+    @user = User.new(params[:user])
   #   if @user.save
   #   # successfully created new account; set up the session and redirect
   #     @user.update(name: generate_user_name)
