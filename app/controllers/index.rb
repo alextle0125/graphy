@@ -76,7 +76,7 @@ post '/result/show' do
     session[:current_results] << @result.id
   end
   session[:current_results].uniq!
-  data.to_json
+  redirect data
 end
 
 get '/users/:user_id/results/:result_id' do
