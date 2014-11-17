@@ -114,16 +114,16 @@ $(document).ready(function() {
       dataType: "json"
     }).done(function(data){
       console.log(data)
-      var dataArray = parseData(data);
-      if (newGraph) {
-        graph(dataArray, query);
-        newGraph = false;
-        $('.metadata').css('display','inline-block');
-      } else {
-        addSeries(dataArray, query, true);
-      }
-      addSeries(leastSquaresRegression(dataArray), query + " LSR", false);
-      $('input[name="criteria"]').val('');
+      // var dataArray = parseData(data);
+      // if (newGraph) {
+      //   graph(dataArray, query);
+      //   newGraph = false;
+      //   $('.metadata').css('display','inline-block');
+      // } else {
+      //   addSeries(dataArray, query, true);
+      // }
+      // addSeries(leastSquaresRegression(dataArray), query + " LSR", false);
+      // $('input[name="criteria"]').val('');
     });
   });
 
