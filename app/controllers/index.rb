@@ -37,7 +37,7 @@ post '/sessions/error' do
       erb :index
   #   end
   end
-  redirect "/"
+  # redirect "/"
 end
 
 delete '/sessions/:id' do
