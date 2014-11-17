@@ -1,7 +1,11 @@
 function parseData(data) {
-    var result = $.parseJSON(data.results);
-    return generateDataArray(result.results);
+    return generateDataArray(data.results);
 }
+
+// function parseData(data) {
+//     var result = $.parseJSON(data.file_data);
+//     return generateDataArray(result.results);
+// }
 
 function parseDate(str) {
     var year = str.substr(0,4),
