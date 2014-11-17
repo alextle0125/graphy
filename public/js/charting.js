@@ -1,5 +1,5 @@
 function parseData(data) {
-    var result = $.parseJSON(data.file_data);
+    var result = $.parseJSON(data.results);
     return generateDataArray(result.results);
 }
 
