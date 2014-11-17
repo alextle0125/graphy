@@ -61,7 +61,7 @@ post '/result/show' do
   unless @result
     Result.create(
       topic: params[:criteria],
-      file_data: get_fda_data(params[:criteria]),
+      # file_data: get_fda_data(params[:criteria]),
       user_id: session[:user_id]
     )
   end
