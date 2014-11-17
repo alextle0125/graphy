@@ -18,7 +18,7 @@ post '/sessions/error' do
   #   if user && user.authenticate(params[:user][:password])
   #   # successfully authenticated; set up session and redirect
   #     session[:user_id] = user.id
-      redirect '/'
+      # redirect '/'
   #   else
   #     @error = "Invalid email or password"# an error occurred, re-render the sign-in form, displaying an error
   #     erb :index
