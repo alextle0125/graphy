@@ -13,29 +13,26 @@ end
 #----------- SESSIONS -----------
 
 post '/sessions/error' do
+  user = User.find_by_email(params[:user][:email])
   if params[:signin] == "Sign In"
-  #   user = User.find_by(email: params[:user][:email])
-  #   if user && user.authenticate(params[:user][:password])
-  #   # successfully authenticated; set up session and redirect
-  #     session[:user_id] = user.id
-      # redirect '/'
-  #   else
-  #     @error = "Invalid email or password"# an error occurred, re-render the sign-in form, displaying an error
-  #     erb :index
-  #   end
-  elsif params[:signin] == "Sign Up"
+    if user && user.authenticate(params[:user][:password])
+    # successfully authenticated; set up session and redirect
+      session[:user_id] = user.id
+      redirect '/'
+    else
+      @error = "Invalid email or password"# an error occurred, re-render the sign-in form, displaying an error
+      erb :index
+    end
+  elsif params[:signin] == "Sign Up" && user == nil
     generate_user_name = params[:user][:email].scan(/(.*)@/)
     generate_user_name = generate_user_name[0][0]
-    @user = User.new(params[:user])
-  #   if @user.save
-  #   # successfully created new account; set up the session and redirect
-  #     @user.update(name: generate_user_name)
-  #     session[:user_id] = @user.id
-  #     redirect '/'
-  #   else
-      @error = "E-mail is already taken"
-      erb :index
-  #   end
+    @user = User.create(params[:user])
+    @user.update(name: generate_user_name)
+    session[:user_id] = @user.id
+    redirect '/'
+  else
+    @error = "E-mail is already taken"
+    erb :index
   end
   # redirect "/"
 end
