@@ -14,7 +14,10 @@ end
 
 post '/sessions/error' do
   user = User.find_by_email(params[:user][:email])
-  if params[:signin] == "Sign In"
+  if params[:signin] == "Sign Up" && params[:user][:email] == "" || params[:signin] == "Sign Up" && params[:user][:password] == ""
+    @error = "Please enter your email and password"
+    erb :index
+  elsif params[:signin] == "Sign In"
     if user && user.authenticate(params[:user][:password])
     # successfully authenticated; set up session and redirect
       session[:user_id] = user.id
