@@ -3,8 +3,12 @@
 // }
 
 function parseData(data) {
-    // var result = $.parseJSON(data.file_data);
-    return generateDataArray(data.results);
+    if (data.results) {
+        return generateDataArray(data.results);
+    } else if (data.file_data) {
+        var result = $.parseJSON(data.file_data);
+        return generateDataArray(result.results);
+    }
 }
 
 function parseDate(str) {
