@@ -1,11 +1,11 @@
-function parseData(data) {
-    return generateDataArray(data.results);
-}
-
 // function parseData(data) {
-//     var result = $.parseJSON(data.file_data);
-//     return generateDataArray(result.results);
+//     return generateDataArray(data.file_data.results);
 // }
+
+function parseData(data) {
+    var result = $.parseJSON(data.file_data);
+    return generateDataArray(result.results);
+}
 
 function parseDate(str) {
     var year = str.substr(0,4),
